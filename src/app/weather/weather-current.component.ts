@@ -14,6 +14,7 @@ export class WeatherCurrrent implements OnInit, OnDestroy {
     errorMessage: string = '';
     zips: string[] =    ['10026', '19109'];
     //newZip: string = '';
+    tempUnit: string = 'F';
     
     
     private _newZip: string = '';
@@ -61,8 +62,6 @@ export class WeatherCurrrent implements OnInit, OnDestroy {
             weatherData.icon = res.weather[0].icon;
             weatherData.maxTemperature=res.main.temp_max;
             weatherData.minTemperature = res.main.temp_min;
-            //this.showCurrent = true;
-            //this.showForecast = false;
             console.log('weather data2 is:', weatherData);
             this.conditions.push(weatherData);
        }
@@ -76,5 +75,9 @@ export class WeatherCurrrent implements OnInit, OnDestroy {
         this.conditions = this.conditions.filter(e => e.zip !== zip);
     }
     
+    toggleUnit(): void {
+        this.tempUnit = this.tempUnit === 'F' ? 'C' : 'F';
+        console.log('current unit:' + this.tempUnit);
+    }
     ngOnDestroy(): void { }
 };

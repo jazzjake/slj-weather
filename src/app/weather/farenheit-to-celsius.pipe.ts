@@ -4,8 +4,9 @@ import { Pipe, PipeTransform } from "@angular/core";
 @Pipe({
     name: 'farToCelsius'
 })
-export class ConvertFarenheitToCelsius implements PipeTransform{
+export class ConvertFarenheitToCelsiusPipe implements PipeTransform{
     transform(value: number, unit: string) {
+        console.log('unit is:' + unit + ' value:' + value + 'number:' +isNaN(value)  );
         if(value && !isNaN(value)) {
             if (unit === 'C') {
                 var temperature = (value - 32) /1.8 ;

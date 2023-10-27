@@ -17,8 +17,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr> <b>Minimum Temperature</b> : {{detail.minTemperature}}F </tr> 
-        <tr> <b>Maximum Temperature</b> : {{detail.maxTemperature}}F </tr>
+        <tr> <b>Minimum Temperature</b> : {{detail.minTemperature | farToCelsius:tempUnit}}{{tempUnit}} </tr> 
+        <tr> <b>Maximum Temperature</b> : {{detail.maxTemperature | farToCelsius:tempUnit}}{{tempUnit}} </tr>
         <tr> <b>Description</b> : {{detail.description}}</tr>
         <tr><span> 
                     <img src="http://openweathermap.org/img/w/{{detail.icon}}.png" alt="Site Logo" width="50" height="50">

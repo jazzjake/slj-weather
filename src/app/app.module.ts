@@ -7,13 +7,15 @@ import { WeatherCurrrent } from './weather/weather-current.component';
 import { RouterModule } from '@angular/router';
 import { WeatherForecastComponent } from './weather/weather-forecast.component';
 import { FormsModule } from '@angular/forms';
+import { ConvertFarenheitToCelsiusPipe } from './weather/farenheit-to-celsius.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     WeatherCurrrent,
-    WeatherForecastComponent
+    WeatherForecastComponent,
+    ConvertFarenheitToCelsiusPipe
   ],
   imports: [
     BrowserModule,
@@ -21,7 +23,9 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     RouterModule.forRoot([
       { path: 'weather', component: WeatherCurrrent },
-      { path: 'forecast/:zip', component: WeatherForecastComponent }
+      { path: 'forecast/:zip', component: WeatherForecastComponent },
+      { path: 'forecast/:zip/:unit', component: WeatherForecastComponent },
+      { path: '', component: WeatherCurrrent }
     ])
   ],
   providers: [],

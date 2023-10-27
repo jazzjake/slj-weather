@@ -10,6 +10,7 @@ import { IForecastDetails } from '../models/forecastDetails';
   styleUrls: ['./weather-forecast.component.css']
 })
 export class WeatherForecastComponent implements OnInit {
+  tempUnit: string = 'F';
 
   constructor(private route: ActivatedRoute,
     private weatherService: WeatherService,
@@ -20,6 +21,10 @@ export class WeatherForecastComponent implements OnInit {
 
   ngOnInit(): void {
     const zip = this.route.snapshot.paramMap.get('zip');
+    const unit = this.route.snapshot.paramMap.get('unit');
+    if(unit != null) {
+      this.tempUnit = unit;
+    }
     this.loadCurrentForecast(zip!);
   }
 
