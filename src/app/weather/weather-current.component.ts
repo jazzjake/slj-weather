@@ -23,11 +23,12 @@ export class WeatherCurrrent implements OnInit, OnDestroy {
     set newZip(value: string) {
         this._newZip =value;
         if(this._newZip.length ===5 && !isNaN(parseInt(this._newZip))) {
-            this.zips.push(this._newZip);
-            
+            if(!this.zips.includes(this._newZip)){
+                this.zips.push(this._newZip);
                 this.loadCurrentWeather(this._newZip);
                 localStorage.setItem("slj", JSON.stringify(this.zips));
-            
+                this._newZip = '';
+            }
         }
 
     }
@@ -40,6 +41,9 @@ export class WeatherCurrrent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         let localZip =localStorage.getItem("slj")
+        if(localZip != null && localZip != undefined){
+            this.zips = JSON.parse(localZip);
+        }
         console.log("My stored stuff: " + localZip);
         for(var index in this.zips) {
         this.loadCurrentWeather(this.zips[index]);
@@ -63,10 +67,14 @@ export class WeatherCurrrent implements OnInit, OnDestroy {
             this.conditions.push(weatherData);
        }
       );
-  
-      
-
     }
 
+    removeZip(zip: string): void {
+        console.log('Remove zip ' + zip);
+        this.zips = this.zips.filter((e, i) => e !== zip);
+        localStorage.setItem("slj", JSON.stringify(this.zips));
+        this.conditions = this.conditions.filter(e => e.zip !== zip);
+    }
+    
     ngOnDestroy(): void { }
 };

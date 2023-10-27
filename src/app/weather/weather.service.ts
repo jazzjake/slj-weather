@@ -1,29 +1,32 @@
 import { Injectable } from "@angular/core";
 import {HttpClient, HttpErrorResponse } from "@angular/common/http"
 import { Observable, catchError, tap, throwError } from "rxjs";
+import { environment } from "../environment/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class WeatherService {
-    private forecastURL = 'http://api.openweathermap.org/data/2.5/forecast?&APPID=102f1d03e4b125b6231b9199c6e58e11&units=imperial&zip=';
-    //private forecastURL = 'http://api.openweathermap.org/data/2.5/forecast?zip=08081,us&APPID=102f1d03e4b125b6231b9199c6e58e11&units=imperial';
-    //private weatherURL = 'http://api.openweathermap.org/data/2.5/weather?zip=08081,us&APPID=102f1d03e4b125b6231b9199c6e58e11&units=imperial';
-    private weatherURL = 'http://api.openweathermap.org/data/2.5/weather?APPID=102f1d03e4b125b6231b9199c6e58e11&units=imperial&zip=';
+    //private forecastURL = 'http://api.openweathermap.org/data/2.5/forecast?&APPID=${environment.appId}&units=imperial&zip=';
+   //private weatherURL = 'http://api.openweathermap.org/data/2.5/weather?APPID=${environment.appId}&units=imperial&zip=';
+    private baseURL = 'http://api.openweathermap.org/data/2.5/';
 
 
     constructor(private http: HttpClient) {}
 
     getWeather(zip: string): Observable<any> {
-        // return this.http.get(this.weatherURL).pipe(
-        //     tap(data => console.log('All: ', JSON.stringify(data))),
-        //     catchError(this.handleError)
-        // );
-        return this.http.get(this.weatherURL + zip + ',us');
+        
+        let url = this.baseURL + 'weather?APPID=' + environment.appId + '&units=imperial&zip=' + zip + ',us';
+        console.log('appid: ' + environment.appId)
+        
+        //return this.http.get(this.weatherURL + zip + ',us');
+        return this.http.get(url);
     }
 
     getForecast(zip: string): Observable<any> {
-        return this.http.get(this.forecastURL + zip + ',us');
+        let url = this.baseURL + 'forecast?APPID=' + environment.appId + '&units=imperial&zip=' + zip + ',us';
+        //return this.http.get(this.forecastURL + zip + ',us');
+        return this.http.get(url);
       }
 
     private handleError(err: HttpErrorResponse) {
